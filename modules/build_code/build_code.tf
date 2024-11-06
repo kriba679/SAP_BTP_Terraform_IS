@@ -13,7 +13,6 @@ terraform {
 # ------------------------------------------------------------------------------------------------------
 #  USERS AND ROLES
 # ------------------------------------------------------------------------------------------------------
-#
 # Get all available subaccount roles
 data "btp_subaccount_roles" "all" {
   subaccount_id = var.subaccount_id
