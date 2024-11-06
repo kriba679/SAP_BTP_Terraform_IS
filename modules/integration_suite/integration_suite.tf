@@ -11,15 +11,6 @@ terraform {
 }
 
 # ------------------------------------------------------------------------------------------------------
-#  USERS AND ROLES
-# ------------------------------------------------------------------------------------------------------
-# Get all available subaccount roles
-data "btp_subaccount_roles" "all" {
-  subaccount_id = var.subaccount_id
-  depends_on    = [btp_subaccount_subscription.integrationsuite-trial, btp_subaccount_entitlement.integrationsuite-trial]
-}
-
-# ------------------------------------------------------------------------------------------------------
 # Setup Integration Suite entitlement
 # ------------------------------------------------------------------------------------------------------
 # Entitlement - "integrationsuite-trial" is the module
@@ -38,6 +29,16 @@ resource "btp_subaccount_subscription" "integrationsuite-trial" {
   depends_on    = [btp_subaccount_entitlement.integrationsuite-trial]
 }
 
+# ------------------------------------------------------------------------------------------------------
+#  USERS AND ROLES
+# ------------------------------------------------------------------------------------------------------
+# Get all available subaccount roles
+data "btp_subaccount_roles" "all" {
+  subaccount_id = var.subaccount_id
+  depends_on    = [btp_subaccount_subscription.integrationsuite-trial, btp_subaccount_entitlement.integrationsuite-trial]
+}
+
+
 # Create role collection "Build Code Administrator"
 resource "btp_subaccount_role_collection" "Integration_Suite_Admin" {
   subaccount_id = var.subaccount_id
@@ -49,7 +50,7 @@ resource "btp_subaccount_role_collection" "Integration_Suite_Admin" {
       name                 = role.name
       role_template_app_id = role.app_id
       role_template_name   = role.role_template_name
-    } if contains(["IntegrationProvisioningAdmin", "Administrator"], role.role_template_name)
+    } if contains(["IntegrationProvisioningAdmin", "Administrator", "AuthGroup_Administrator", "AuthGroup_BusinessExpert", "AuthGroup_ContentPublisher", "AuthGroup_IntegrationDeveloper"], role.role_template_name)
   ]
 }
 
