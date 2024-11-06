@@ -64,3 +64,10 @@ variable "process_automation_participants" {
   type        = list(string)
   description = "Defines the users who have the role of ProcessAutomationParticipant in SAP Build Process Automation"
 }
+
+#------------------------------------------------------------------------------------#
+
+variable "integration_suite_admins" {
+  type        = list(string)
+  description = "Defines the colleagues who are admins for Integration Suite."
+}

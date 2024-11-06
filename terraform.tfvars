@@ -14,3 +14,6 @@ application_studio_extension_deployer = ["consulting@adepthr.ca"]
 process_automation_admins       = ["consulting@adepthr.ca"]
 process_automation_developers   = ["consulting@adepthr.ca"]
 process_automation_participants = ["your.email@foo.xyz"]
+
+# users for Integration Suite
+integration_suite_admins     = ["consulting@adepthr.ca"]

@@ -28,8 +28,6 @@
 #
 
 
-
-
 # Create a random uuid to append to the Subaccount's Subdomain
 resource "random_uuid" "uuid" {}
 
@@ -37,7 +35,68 @@ resource "random_uuid" "uuid" {}
 # locals {
 #   subaccount_domain = lower(replace("${var.subaccount_domain_prefix}-
 #   ${random_uuid.uuid.result}", "_", "-"))
-# }
+#}
+
 locals {
   subaccount_domain = lower(replace("${random_uuid.uuid.result}", "_", "-"))
+}
+
+# Create the subaccount
+# Syntax - A resource block declares a resource of a specific type with a specific 
+# local name. 'sa_build' is the local name of the Subaccount 
+resource "btp_subaccount" "sa_build" {
+  name      = var.subaccount_name
+  subdomain = local.subaccount_domain
+  region    = lower(var.region)
+}
+
+# As the Global Account administrator, when I create a Subaccount I am automatically  
+# added as a subaccount administrator
+
+
+
+#------------------------------------------------------------------------------------#
+# Set up Entitlements, service subscription and Role Collections
+#------------------------------------------------------------------------------------#
+# A module is a container for multiple resources that are used together
+module "build_code" {
+  #Path to the local file directory 
+  source = "./modules/build_code/"
+
+  subaccount_id = btp_subaccount.sa_build.id
+
+  application_studio_admins             = var.application_studio_admins
+  application_studio_developers         = var.application_studio_developers
+  application_studio_extension_deployer = var.application_studio_extension_deployer
+
+  build_code_admins     = var.build_code_admins
+  build_code_developers = var.build_code_developers
+}
+
+
+#------------------------------------------------------------------------------------#
+# Set up Entitlements, service subscription and Role Collections
+#------------------------------------------------------------------------------------#
+module "build_process_automation" {
+  source = "./modules/build_process_automation"
+
+  subaccount_id = btp_subaccount.sa_build.id
+
+  process_automation_admins       = var.process_automation_admins
+  process_automation_developers   = var.process_automation_developers
+  process_automation_participants = var.process_automation_participants
+}
+
+
+#------------------------------------------------------------------------------------#
+# Set up Entitlements, service subscription and Role Collections
+#------------------------------------------------------------------------------------#
+# A module is a container for multiple resources that are used together
+module "integrationsuite-trial" {
+  #Path to the local file directory 
+  source = "./modules/integration_suite"
+
+  subaccount_id = btp_subaccount.sa_build.id
+
+  integration_suite_admins     = var.integration_suite_admins
 }

@@ -5,6 +5,12 @@ terraform {
       version = "~> 1.7.0"
     }
   }
+  backend "remote" {
+    organization = "SAP_BTP_Terraform_Test"
+    workspaces {
+      name = "sap_btp_workspace"
+    }
+  }
 }
 
 # Please checkout documentation on how best to authenticate against SAP BTP
