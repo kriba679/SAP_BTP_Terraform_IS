@@ -5,7 +5,7 @@ variable "globalaccount" {
 variable "subaccount_domain_prefix" {
   type        = string
   description = "The prefix used for the subaccount domain"
-  default     = "e698c109trial"
+  default     = "9baef9b8trial"
 }
 
 # BusinessProcess_MF_Dev

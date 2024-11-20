@@ -8,7 +8,7 @@ terraform {
   backend "remote" {
     organization = "SAP_BTP_Terraform_Test"
     workspaces {
-      name = "sap_btp_workspace"
+      name = "sap_btp_poc1"
     }
   }
 }

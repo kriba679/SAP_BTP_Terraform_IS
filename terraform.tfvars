@@ -1,4 +1,4 @@
-globalaccount = "e698c109trial-ga"
+globalaccount = "9baef9b8trial-ga"
 region        = "us10"
 
 # users for SAP Build Code
@@ -16,4 +16,4 @@ process_automation_developers   = ["consulting@adepthr.ca"]
 process_automation_participants = ["your.email@foo.xyz"]
 
 # users for Integration Suite
-integration_suite_admins     = ["consulting@adepthr.ca"]
+integration_suite_admins = ["consulting@adepthr.ca"]
