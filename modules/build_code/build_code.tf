@@ -51,6 +51,7 @@ resource "btp_subaccount_role_collection" "build_code_administrator" {
     } if contains(["Business_Application_Studio_Administrator", "Administrator", "FeatureFlags_Dashboard_Administrator", "RegistryAdmin"], role.role_template_name)
   ]
 }
+
 # Assign users to the role collection "Build Code Administrator"
 resource "btp_subaccount_role_collection_assignment" "build_code_administrator" {
   for_each             = toset(var.build_code_admins)

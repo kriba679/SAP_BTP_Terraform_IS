@@ -14,6 +14,9 @@ terraform {
 # Setup Integration Suite entitlement
 # ------------------------------------------------------------------------------------------------------
 # Entitlement - "integrationsuite-trial" is the module
+
+### Check if the entitlement already exists - if it does do not create a new one
+
 resource "btp_subaccount_entitlement" "integrationsuite-trial" {
   subaccount_id = var.subaccount_id
   service_name  = "integrationsuite-trial"
@@ -21,12 +24,18 @@ resource "btp_subaccount_entitlement" "integrationsuite-trial" {
   amount        = 1
 }
 
+#### - How to get the app name ???
+#appname is assigned post entitlement assignment
+
 # Subscribe
 resource "btp_subaccount_subscription" "integrationsuite-trial" {
-  subaccount_id = var.subaccount_id
-  app_name      = "it-cpitrial05-prov"
-  plan_name     = "trial"
+  subaccount_id = var.subaccount_id       #req
+  app_name      = "it-cpitrial06-prov"    #req
+  plan_name     = "trial"                 #req
   depends_on    = [btp_subaccount_entitlement.integrationsuite-trial]
+  parameters = jsonencode({
+  additional_features = ["build-integration-scenarios"] # Example if applicable
+})
 }
 
 # ------------------------------------------------------------------------------------------------------
