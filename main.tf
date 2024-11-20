@@ -54,7 +54,7 @@ resource "btp_subaccount" "sa_build" {
 # added as a subaccount administrator
 
 
-
+/*
 #------------------------------------------------------------------------------------#
 # Set up Entitlements, service subscription and Role Collections
 #------------------------------------------------------------------------------------#
@@ -86,6 +86,7 @@ module "build_process_automation" {
   process_automation_developers   = var.process_automation_developers
   process_automation_participants = var.process_automation_participants
 }
+*/
 
 
 #------------------------------------------------------------------------------------#
@@ -98,5 +99,5 @@ module "integrationsuite-trial" {
 
   subaccount_id = btp_subaccount.sa_build.id
 
-  integration_suite_admins     = var.integration_suite_admins
+  integration_suite_admins = var.integration_suite_admins
 }
